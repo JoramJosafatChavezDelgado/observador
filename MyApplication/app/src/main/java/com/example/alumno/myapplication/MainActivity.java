@@ -11,11 +11,13 @@ import com.example.alumno.myapplication.helpers.Callback;
 import com.example.alumno.myapplication.helpers.MonitorObservable;
 import com.example.alumno.myapplication.helpers.ObserverBind;
 import com.example.alumno.myapplication.models.Client;
+import com.example.alumno.myapplication.presenters.MainPresenter;
 
 import java.util.Observable;
 
 public class MainActivity extends AppCompatActivity {
     Button btnabrir;
+    MainPresenter mainPresenter;
     MonitorObservable monitorObservable;
     ObserverBind observerBind;
     Client clientObject;
@@ -26,28 +28,16 @@ public class MainActivity extends AppCompatActivity {
 
         clientObject = new Client();
         clientObject.setYear_old(19);
-        /* aqui ideamos un objeto con un observador */
-        monitorObservable = new MonitorObservable(clientObject);
-        observerBind=new ObserverBind();
-        observerBind.setCallback(new Callback(){
-            @Override
-            public void doThis(Observable o, Object x){
-                // todo lo que yo quiera
-                Log.v("cambio","se escucho y se cambio");
-                Toast.makeText(MainActivity.this,
-                        clientObject.getYear_old()+ "",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-        monitorObservable.addObserver(observerBind);
+
+        mainPresenter = new MainPresenter(this, clientObject);
 
         btnabrir = (Button)findViewById(R.id.btnabrir);
         btnabrir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
                 clientObject.setYear_old(clientObject.getYear_old()+1);
-                monitorObservable.setWachedValue(clientObject);
-                Toast.makeText(MainActivity.this, "se realizo el cambio", Toast.LENGTH_SHORT).show();
+                mainPresenter.monitorObservable.setWachedValue(clientObject);
+                /*Toast.makeText(MainActivity.this, "se realizo el cambio", Toast.LENGTH_SHORT).show();*/
             }
         });
     }

@@ -18,9 +18,9 @@
 
     <Button
         android:id="@+id/btnabrir"
-        android:layout_width="216dp"
-        android:layout_height="86dp"
+        android:layout_width="166dp"
+        android:layout_height="71dp"
         android:text="abrir"
         app:layout_constraintTop_toTopOf="@+id/textView"
-        tools:layout_editor_absoluteX="99dp" />
+        tools:layout_editor_absoluteX="109dp" />
 </android.support.constraint.ConstraintLayout>
